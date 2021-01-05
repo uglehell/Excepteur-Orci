@@ -1,7 +1,38 @@
-body {
-  margin: 0;
+html {
+  scroll-behavior: smooth;
 }
 
-input, button, textarea {
+body {
+  margin: 0;
+  font-family: Montserrat;
+  font-weight: 400;
+  color: #fff;
+  background: $dark-green;
+}
+
+input, button {
   font-family: inherit;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+::selection {
+  color: $dark-green;
+  background: #fff;
+}
+
+.hidden {
+  display: none !important;
 }

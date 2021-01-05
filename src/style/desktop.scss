@@ -1,0 +1,56 @@
+.desktop {
+  .nav {
+    &__item {
+      position: relative;
+
+      &::before {
+        content: '';
+        transition: .5s;
+        position: absolute;
+        bottom: -5%;
+        background: #fff;
+        border-radius: 1px;
+        width: 0px;
+        height: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      &:hover::before {
+        width: 100px;
+      }
+    }
+  }
+
+  .home {
+    &__social-link {
+      opacity: .77;
+      transition: .5s;
+  
+      &:hover {
+        opacity: 1;
+        transform: translateY(-8px);
+      }
+    }
+  }
+}
+
+@media (min-width: $inline-menu-start-width) and (orientation: landscape) {
+  .desktop {
+    .nav {
+      &__item {
+        &-link-btn {
+          transition: .3s;
+        }
+        &::before {
+          bottom: -23%;
+        }
+        &:hover::before {
+          width: 48px;
+        }
+        &-link-btn:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

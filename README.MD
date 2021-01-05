@@ -24,4 +24,5 @@ characteristics:
   * Optimized
   * Accessible
   * Semantics
-  * CSS animations (transition, keyframes) -->
+  * CSS animations (transition, keyframes)
+  * Mobile first -->

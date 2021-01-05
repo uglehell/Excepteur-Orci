@@ -1,0 +1,121 @@
+@media (min-width: 370px) {
+  .home {
+    &__title {
+      font-size: 57px;
+    }
+    &__description {
+      font-size: 17px;
+    }
+  }
+}
+@media (min-width: 682px) {
+  .home {
+    &__title {
+      margin-bottom: 6.4vh;
+    }
+  }
+}
+@media (min-width: 730px) {
+  .home {
+    &__title {
+      font-size: 63px;
+    }
+    &__description {
+      font-size: 18px;
+    }
+  }
+}
+@media (min-width: 1000px) {
+  .home {
+    &__social-link {
+      width: 50px;
+      height: 50px;
+    }
+    &__inscriptions {
+      left: 36vw;
+    }
+    &__title {
+      font-size: 71px;
+    }
+    &__description {
+      font-size: 19px;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .home {
+    &__title {
+      font-size: 81px;
+    }
+    &__description {
+      font-size: 20px;
+    }
+  }
+}
+@media (min-width: 1400px) {
+  .home {
+    &__title {
+      font-size: 90px;
+    }
+  }
+}
+@media (min-height: 630px) {
+  .nav {
+    &__item {
+      margin: 1vh;
+    }
+  }
+}
+@media (min-height: 750px) {
+  .home {
+    &__inscriptions {
+      top: 55vh;
+    }
+  }
+}
+@media (min-height: 1100px) {
+  .home {
+    &__title {
+      font-size: 90px;
+    }
+    &__inscriptions {
+      left: 40vw;
+    }
+  }
+}
+@media (orientation: landscape) {
+  .home {
+    background-image: url('../images/home/background_horizontal.jpg');
+  }
+
+  @media (min-width: $inline-menu-start-width) {
+    .nav-btn {
+      display: none;
+    }
+    
+    .nav {
+      &__links-list {
+        opacity: 1;
+        background: none;
+        flex-direction: row;
+        justify-content: space-between;
+        height: auto;
+        max-width: 551px;
+        width: 50%;
+        right: 6.2vw;
+        top: 6.2vh;
+        left: auto;
+      }
+      &__item {
+        transform: translateX(0px) !important;
+
+        &-link-btn {
+          font-size: 19px;
+          font-weight: 400;
+          opacity: .8;
+          letter-spacing: 1.5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+$secondary-color: #fff;
+$dark-green: #072E2C;
+
+$click-mobile-transition: .1s;
+$inline-menu-start-width: 928px;
+
+@mixin title {
+  font-family: Poppins;
+  font-weight: 300;
+}
+
+@mixin title-light {
+  font-family: Poppins;
+  font-weight: 200;
+}
+
+@mixin description {
+  letter-spacing: .01em;
+  font-size: 15px;
+  line-height: 150%;
+}
+
+@mixin description-light {
+  letter-spacing: .01em;
+  font-size: 15px;
+  line-height: 150%;
+  font-weight: 300;
+}

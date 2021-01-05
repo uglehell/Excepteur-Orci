@@ -3,9 +3,19 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Porta lorem mollis aliquam ut. Bibendum arcu vitae elementum curabitur vitae.")
     title Excepteur orci
     link(rel="stylesheet", href="css/style.css")
+    link(rel="shortcut icon", href="images/favicon.ico", type="image/x-icon")
   body
     include mixins.pug
+    
+    main.main
+      +nav
+      +nav-btn
+
+      //- sections
+      +home
+      +ornare
 
     script(src="javascript/main.js")

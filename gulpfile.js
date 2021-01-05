@@ -28,14 +28,14 @@ const path = {
     index:   'src/index/index.pug',
     style:   'src/style/style.{scss,css}',
     scripts: 'src/scripts/*.{ts,js}',
-    medias:  'src/images/*',
+    medias:  'src/images/**/*',
     fonts:   'src/fonts/*.{woff,woff2}'
   },
   srcWatch: {
     index:   'src/index/*.pug',
     style:   'src/style/*.{scss,css}',
     scripts: 'src/scripts/*.{ts,js}',
-    medias:  'src/images/*',
+    medias:  'src/images/**/*',
     fonts:   'src/fonts/*.{woff,woff2}'
   }
 }
@@ -52,7 +52,6 @@ const buildFunctions = {
     done()
   },
   style: done => {
-    del(path.dist.style)
     gulp.src(path.src.style)
       .pipe(plumber({
         errorHandler: error => {
@@ -213,6 +212,7 @@ const devFunction = {
 export const index   = buildFunctions.index
 export const style   = buildFunctions.style
 export const scripts = buildFunctions.scripts
+export const images  = buildFunctions.images
 
 export default devFunction.initialize
 export const build = buildFunctions.build

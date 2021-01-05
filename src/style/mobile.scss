@@ -1,0 +1,38 @@
+.mobile {
+  .nav-btn {
+    transition: opacity .5s, transform $click-mobile-transition;
+    
+    &:active {
+      transform: scale(.9);
+    }
+  }
+
+  .nav {
+    &__item-link-btn {
+      transition: $click-mobile-transition;
+      &:active {
+        transform: scale(.95);
+      }
+    }
+  }
+
+  .home {
+    &__social-link-btn {
+      transition: $click-mobile-transition;
+
+      &:active {
+        transform: scale(.9);
+      }
+    }
+  }
+}
+
+@media (min-width: $inline-menu-start-width) and (orientation: landscape) {
+  .mobile {
+    .nav {
+      &__item-link-btn:active {
+        opacity: 1;
+      }
+    }
+  }
+}

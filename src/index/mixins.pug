@@ -1,0 +1,43 @@
+mixin nav
+  nav.nav
+    ul.nav__links-list.hidden
+      +nav-item('home')
+      +nav-item('ornare')
+      +nav-item('pharetra')
+      +nav-item('laoreet')
+
+mixin nav-btn
+  button.nav-btn.nav-btn--disabled(aria-label='Hamburger menu')
+    .nav-btn__item.nav-btn__item-first
+    .nav-btn__item.nav-btn__item-second
+    .nav-btn__item.nav-btn__item-third
+
+mixin nav-item(sectionTitle)
+  li.nav__item(class= 'nav__item-' + sectionTitle)
+    a.nav__item-link(href='#' + sectionTitle)
+      button.nav__item-link-btn= sectionTitle
+
+mixin home
+  section#home.section.home.home--disabled
+    .home__inscriptions
+      h1.home__title.home__title--disabled Excepteur orci
+      .home__description.home__description--disabled Sed felis eget velit aliquet sagittis id consectetur purus. Ac ut consequat semper viverra nam. Facilisis sed odio morbi quis commodo.
+    .home__social
+      ul.home__social-list
+        +home-social('facebook')
+        +home-social('instagram')
+        +home-social('twitter')
+    .home__indicator.section__indicator.section__indicator--disabled
+
+mixin home-social(socialName)
+  li.home__social-item(class= 'home__social-item-' + socialName)
+    a.home__social-link(
+      href='https://' + socialName + '.com',
+      target='_blank', class= 'home__social-link-' + socialName,
+      rel="noopener"
+    )
+      button.home__social-link-btn(aria-label= socialName)
+        img.home__social-img(src='images/home/' + socialName + '.svg', alt='')
+
+mixin ornare
+  section#ornare.section.ornare
