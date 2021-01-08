@@ -18,7 +18,7 @@ mixin nav-item(sectionTitle)
       button.nav__item-link-btn= sectionTitle
 
 mixin home
-  section#home.section.home.home--disabled
+  section#home.home.section.home--disabled
     .home__inscriptions
       h1.home__title.home__title--disabled Excepteur orci
       .home__description.home__description--disabled Sed felis eget velit aliquet sagittis id consectetur purus. Ac ut consequat semper viverra nam. Facilisis sed odio morbi quis commodo.
@@ -27,17 +27,118 @@ mixin home
         +home-social('facebook')
         +home-social('instagram')
         +home-social('twitter')
-    .home__indicator.section__indicator.section__indicator--disabled
+    .home__indicator.section__indicator.section__indicator--disabled.section__indicator.section__indicator--disabled--disabled
 
 mixin home-social(socialName)
   li.home__social-item(class= 'home__social-item-' + socialName)
     a.home__social-link(
       href='https://' + socialName + '.com',
       target='_blank', class= 'home__social-link-' + socialName,
-      rel="noopener"
+      rel='noopener'
     )
       button.home__social-link-btn(aria-label= socialName)
         img.home__social-img(src='images/home/' + socialName + '.svg', alt='')
 
 mixin ornare
-  section#ornare.section.ornare
+  section#ornare.ornare.section
+    +ornare-item(
+      'Sed cras ornare arcu dui',
+      'Duis tristique sollicitudin nibh sit amet commodo nulla facilisi nullam. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.',
+      'https://google.com',
+      'images/ornare/first_illustration.jpg',
+      false
+    )
+    +ornare-item(
+      'Ultrices dui sapien eget mi',
+      'Consectetur adipiscing elit ut aliquam purus sit amet. Eu lobortis elementum nibh tellus molestie nunc. Gravida quis blandit turpis cursus in hac.',
+      'https://google.com',
+      'images/ornare/second_illustration.jpg',
+      true
+    )
+    +ornare-item(
+      'Fermentum odio eu feugiat',
+      'Sit amet justo donec enim diam vulputate ut pharetra sit. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. Dictum sit.',
+      'https://google.com',
+      'images/ornare/third_illustration.jpg',
+      false
+    )
+
+mixin ornare-item(title, description, link, imagePath, isReversed)
+  article.ornare__item.ornare__item--disabled
+    if isReversed
+      .ornare__wrapper.ornare__wrapper--reversed
+        +ornare-item-inner(title, description, link, imagePath)
+    else
+      .ornare__wrapper
+        +ornare-item-inner(title, description, link, imagePath)
+
+    .ornare__indicator.section__indicator.section__indicator--disabled
+
+mixin ornare-item-inner(title, description, link, imagePath)
+  .ornare__illustration
+    .ornare__illustration-decor
+    img.ornare__illustration-img(src= imagePath, alt='')
+  .ornare__content
+    .ornare__content-title= title
+    .ornare__content-description= description
+    +content-button('more', 'ornare', 'https://google.com')
+
+mixin pharetra
+  section#pharetra.pharetra.section
+    .pharetra__content
+      +pharetra-content-item(
+        'Dolor purus non enim praesent elem',
+        'Vestibulum lorem sed risus ultricies. Aerat nam at lectus. Id velit ut tortor pretium viverra suspendisse potenti. Sodales neque sodales ut etiam sit amet nisl purus in.'
+      )
+      +pharetra-content-item(
+        'Libero volutpat sed cras ornare arcu',
+        'Sagittis orci a scelerisque purus semper eget duis at. Nulla facilisi dignissim diam quis enim. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa.'
+      )
+      .pharetra__indicator.section__indicator.section__indicator--disabled
+    +pharetra-form
+    
+mixin pharetra-content-item(title, description)
+  .pharetra__content-item
+    h1.pharetra__content-title= title
+    .pharetra__content-description= description
+
+mixin pharetra-form
+  form.pharetra__form
+    h1.pharetra__form-title
+    label.pharetra__form-input-container
+      input.pharetra__form-input(type="text", name="email")
+      .pharetra__form-input-placeholder Your email
+    +submit-button('send', 'pharetra')
+    
+mixin laoreet
+  section#laoreet.laoreet.section
+    .laoreet__content
+
+mixin footer
+  footer.footer
+
+mixin content-button(value, section, link)
+  a.section__content-btn.content-btn(href= link, target='_blank', class= section + '__content-btn', rel='noopener')
+    button.content-btn__wrapper(aria-label='Content link')
+      span.content-btn__value= value
+      span.content-btn__border.content-btn__border-top
+      span.content-btn__border.content-btn__border-right
+      span.content-btn__border.content-btn__border-bottom
+      span.content-btn__border.content-btn__border-left
+
+mixin submit-button(value, section)
+  .section__content-btn.content-btn.submit-btn(class= section + '__submit-btn')
+    input.content-btn__wrapper.submit-btn__wrapper(type="button", value= value)
+    span.content-btn__border.content-btn__border-top
+    span.content-btn__border.content-btn__border-right
+    span.content-btn__border.content-btn__border-bottom
+    span.content-btn__border.content-btn__border-left
+
+mixin bigger-content-button(value, section, link)
+  a.section__content-btn.content-btn.bigger-content-b(href= link, target='_blank', class= section + '__content-btn', rel='noopener')
+    button.content-btn__wrapper(aria-label='Content link')
+      span.content-btn__value= value
+      span.content-btn__border.content-btn__border-top
+      span.content-btn__border.content-btn__border-right
+      span.content-btn__border.content-btn__border-bottom
+      span.content-btn__border.content-btn__border-left

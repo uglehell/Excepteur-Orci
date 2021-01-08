@@ -1,4 +1,3 @@
-
 'use strict'
 
 class ExcepteurOrci {
@@ -7,23 +6,22 @@ class ExcepteurOrci {
     this.setScrollEventsHandler()
     this.setClickEventHandlers()
     this.sendConsoleMessage()
+    // this.setReloaderOnResize()
   }
 
   setVariables() {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      this.isMobile = true
-    } else {
-      this.isMobile = false
-    }
-
     this.EMAIL_VALIDATION_STRING = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     this.CLASS_HIDDEN = 'hidden'
     this.INDICATOR_DISABLE_CLASS_NAME = 'section__indicator--disabled'
     this.TITLE = document.title
+    this.BODY_HEIGHT = document.body.offsetHeight
     this.INLINE_MENU_VIEWPORT_WIDTH = 928
 
+    this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
     this.indicators = {
-      home: document.querySelector('.home__indicator')
+      home: document.querySelector('.home__indicator'),
+      ornare: document.querySelectorAll('.ornare__indicator')
     }
     this.nav = {
       button: document.querySelector('.nav-btn'),
@@ -43,6 +41,17 @@ class ExcepteurOrci {
       description: document.querySelector('.home__description'),
       sectionHeight: innerHeight
     }
+    this.contentButtons = document.querySelectorAll('.content-btn')
+    this.ornare = {
+      items: {
+        containers: document.querySelectorAll('.ornare__item'),
+        titles: document.querySelectorAll('.ornare__content-title'),
+        descriptions: document.querySelectorAll('.ornare__content-description'),
+        illustrations: document.querySelectorAll('.ornare__illustration-img'),
+        illustrationDecors: document.querySelectorAll('.ornare__illustration-decor')
+      },
+      sectionHeight: document.querySelector('.ornare').offsetHeight
+    }
   }
 
   init() {
@@ -53,6 +62,10 @@ class ExcepteurOrci {
     if (innerHeight < innerWidth && innerWidth >= this.INLINE_MENU_VIEWPORT_WIDTH) {
       this.nav.itemsContainer.classList.remove('hidden')
     }
+
+    // if (!this.isMobile) {
+    //   this.changeTitle()
+    // }
 
     this.setIntroAnimations()
   }
@@ -77,6 +90,8 @@ class ExcepteurOrci {
           this.home.container.style.backgroundPositionY = `calc(50% - ${pageYOffset * .5}px)`
           this.home.inscriptions.style.transform = `translateY(${-pageYOffset * .4}px) translate(-50%, -50%)`
         }
+
+        // this.changeTitle()
       }
 
       this.handleSectionAnimations()
@@ -86,7 +101,7 @@ class ExcepteurOrci {
   setClickEventHandlers() {
 
     // navigation
-    if (innerHeight >= innerWidth && innerWidth >= 320) {
+    if (!(innerHeight < innerWidth && innerWidth >= this.INLINE_MENU_VIEWPORT_WIDTH)) {
       this.nav.button.onclick = () => {
         this.nav.isActive = !this.nav.isActive
   
@@ -133,6 +148,21 @@ class ExcepteurOrci {
         }
       }
     })
+
+    // content buttons
+    this.contentButtons.forEach(button => {
+      button.onclick = () => {
+          buttonClickHandler()
+
+        function buttonClickHandler() {
+          const clickWave = document.createElement('span')
+          clickWave.classList.add('content-btn__click-decor')
+
+          button.appendChild(clickWave)
+          setTimeout(() => clickWave.remove(), 800)
+        }
+      }
+    })
   }
 
   handleSectionAnimations() {
@@ -144,38 +174,86 @@ class ExcepteurOrci {
       this.home.container.classList.add('home--disabled')
     }
 
-    // indicators
-    for (let indicator in this.indicators) {
-      if (!this.indicators[indicator].classList.contains(this.INDICATOR_DISABLE_CLASS_NAME)){
-        this.indicators[indicator].classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
-      }
+    // ornare
+    if (
+      pageYOffset >= this.ornare.sectionHeight / 3 * .2 &&
+      pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight / 3
+    ) {
+      this.ornare.items.containers[0].classList.remove('ornare__item--disabled')
+    } else {
+      this.ornare.items.containers[0].classList.add('ornare__item--disabled')
+    } if (
+      pageYOffset >= this.ornare.sectionHeight / 3 + this.ornare.sectionHeight / 3 * .2 &&
+      pageYOffset < this.home.sectionHeight + 2 * this.ornare.sectionHeight / 3
+    ) {
+      this.ornare.items.containers[1].classList.remove('ornare__item--disabled')
+    } else {
+      this.ornare.items.containers[1].classList.add('ornare__item--disabled')
+    } if (
+      pageYOffset >= 2 * this.ornare.sectionHeight / 3 + this.ornare.sectionHeight / 3 * .2 &&
+      pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight
+    ) {
+      this.ornare.items.containers[2].classList.remove('ornare__item--disabled')
+    } else {
+      this.ornare.items.containers[2].classList.add('ornare__item--disabled')
     }
-    if (pageYOffset <= innerHeight / 2) {
-      if (this.indicators.home.classList.contains(this.INDICATOR_DISABLE_CLASS_NAME)) {
-        this.indicators.home.classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
-      }
+
+    // indicators
+    if (pageYOffset < this.home.sectionHeight / 2) {
+      this.indicators.home.classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.home.classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
+    } if (
+      pageYOffset >= this.home.sectionHeight * .5 &&
+      pageYOffset < this.home.sectionHeight * .5 + this.ornare.sectionHeight / 3
+    ) {
+      this.indicators.ornare[0].classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.ornare[0].classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
+    } if (
+      pageYOffset >= this.home.sectionHeight * .5 + this.ornare.sectionHeight / 3 &&
+      pageYOffset < this.home.sectionHeight * .5 + this.ornare.sectionHeight * 2 / 3
+    ) {
+      this.indicators.ornare[1].classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.ornare[1].classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
+    } if (
+      pageYOffset >= this.home.sectionHeight * .5 + this.ornare.sectionHeight * 2 / 3 &&
+      pageYOffset < this.home.sectionHeight * .5 + this.ornare.sectionHeight
+    ) {
+      this.indicators.ornare[2].classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.ornare[2].classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
     }
   }
 
-  changeTitle() {
-    const title = this.TITLE // 🌲
+  changeTitle() { // doesn't work correctly
+    const symbol = '🌲'
+    const index = (pageYOffset / (this.BODY_HEIGHT - innerHeight) * (this.TITLE.length / 2) | 0) * 2
+    
+    let title = this.TITLE.slice(index, this.TITLE.length)
+
+    for (let titleIndex = 0; titleIndex < index; titleIndex += 2) {
+      title = symbol + title
+    }
 
     document.title = title
   }
 
   sendConsoleMessage() {
     const message = {
-      style: 'padding: 10px; color: #fff; background: #072E2C; font-size: 16px;',
-      text: 'Hello. If you want the site to display correctly reload the page for each resolution. Thanks'
+      style: 'padding: 5px; color: #fff; background: #1B3732; font-size: 16px;',
+      text: 'Hello. All information about the project in README.md file on GitHub.'
     }
 
     console.log('%c%s', message.style, message.text)
   }
+
+  setReloaderOnResize() {
+    const previousWidth = innerWidth
+    
+    window.onresize = () => innerWidth != previousWidth && location.reload()
+  }
 }
 
 new ExcepteurOrci()
-
-// reload on resize (delete in production)
-let previousWidth = innerWidth
-
-window.onresize = () => innerWidth != previousWidth && location.reload()

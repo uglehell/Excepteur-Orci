@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 import gulp              from 'gulp'
 import sass              from 'gulp-sass'
@@ -172,7 +172,7 @@ const devFunction = {
   },
   images: done => {
     gulp.src(path.src.medias)
-      .pipe(newer(path.dist.medias))
+      // .pipe(newer(path.dist.medias))
       .pipe(imagemin([
         imagemin.mozjpeg({
           quality: 93,

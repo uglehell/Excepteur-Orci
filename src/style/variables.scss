@@ -1,12 +1,16 @@
 $secondary-color: #fff;
+$green: #1B3732;
 $dark-green: #072E2C;
 
 $click-mobile-transition: .1s;
 $inline-menu-start-width: 928px;
+$viewport-vertical-margin: 6.2vh;
+$viewport-horisontal-margin: 6.2vw;
 
 @mixin title {
   font-family: Poppins;
   font-weight: 300;
+  line-height: 1.2em;
 }
 
 @mixin title-light {
@@ -18,11 +22,17 @@ $inline-menu-start-width: 928px;
   letter-spacing: .01em;
   font-size: 15px;
   line-height: 150%;
+  margin: 25px 0 45px;
 }
 
 @mixin description-light {
   letter-spacing: .01em;
   font-size: 15px;
   line-height: 150%;
+  font-weight: 300;
+}
+
+@mixin button-value {
+  font-family: Poppins;
   font-weight: 300;
 }

@@ -1,4 +1,10 @@
 .desktop {
+  .section {
+    &__indicator--disabled {
+      transform: translateY(-50%) translateX(6vw);
+    }
+  }
+
   .nav {
     &__item {
       position: relative;
@@ -22,6 +28,8 @@
   }
 
   .home {
+    background-attachment: fixed;
+
     &__social-link {
       opacity: .77;
       transition: .5s;
@@ -29,6 +37,107 @@
       &:hover {
         opacity: 1;
         transform: translateY(-8px);
+      }
+    }
+  }
+
+  .content-btn {
+    position: relative;
+
+    &__wrapper {
+      transition: .35s;
+    }
+    &:hover .content-btn__wrapper {
+      transition-delay: .35s;
+      background: rgba(255, 255, 255, .54);
+    }
+    &__value {
+      transition: .35s;
+      color: #fff;
+    }
+    &:hover .content-btn__value {
+      transition-delay: .35s;
+      color: $green;
+    }
+    &__border {
+      background: #fff;
+      position: absolute;
+      transition: .35s;
+      border-radius: 2px;
+
+      &-top {
+        width: 0%;
+        height: 3px;
+        left: 0;
+        top: 0;
+      }
+      &-right {
+        width: 3px;
+        height: 0%;
+        right: 0;
+        bottom: 0;
+      }
+      &-bottom {
+        width: 81%;
+        height: 3px;
+        left: 0;
+        bottom: 0;
+        transition-delay: .35s;
+      }
+      &-left {
+        width: 3px;
+        height: 67%;
+        left: 0;
+        bottom: 0;
+        transition-delay: .35s;
+      }
+    }
+    &:hover .content-btn__border {
+      &-top {
+        width: 100%;
+        transition-delay: .35s;
+      }
+      &-right {
+        height: 100%;
+        transition-delay: .35s;
+      }
+      &-bottom {
+        width: 100%;
+        transition-delay: 0s;
+      }
+      &-left {
+        height: 100%;
+        transition-delay: 0s;
+      }
+    }
+  }
+
+  .submit-btn {
+    &__wrapper {
+      cursor: pointer;
+      transition: .35s;
+      color: #fff;
+    }
+    &:hover .submit-btn__wrapper {
+      transition-delay: .35s;
+      color: $green
+    }
+  }
+
+  .ornare {
+    &__item--disabled .ornare__wrapper--reversed .ornare__content-title,
+    &__item--disabled .ornare__wrapper--reversed .ornare__content-description {
+      transform: translateX(100px);
+    }
+    &__item--disabled .content-btn {
+      opacity: 1;
+    }
+    &__item--disabled .content-btn__border {
+      &-bottom {
+        width: 0%;
+      }
+      &-left {
+        height: 0%;
       }
     }
   }
@@ -40,6 +149,7 @@
       &__item {
         &-link-btn {
           transition: .3s;
+          opacity: .8;
         }
         &::before {
           bottom: -23%;

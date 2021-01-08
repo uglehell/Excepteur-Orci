@@ -10,6 +10,7 @@
   .nav {
     &__item-link-btn {
       transition: $click-mobile-transition;
+      
       &:active {
         transform: scale(.95);
       }
@@ -22,6 +23,19 @@
 
       &:active {
         transform: scale(.9);
+      }
+    }
+  }
+
+  .content-btn {
+    &__wrapper {
+      background: rgba(255, 255, 255, .6);
+      box-sizing: border-box;
+      border: 3px solid #fff;
+      transition: $click-mobile-transition;
+
+      &:active {
+        transform: scale(.94);
       }
     }
   }
