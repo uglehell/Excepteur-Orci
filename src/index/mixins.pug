@@ -85,37 +85,68 @@ mixin ornare-item-inner(title, description, link, imagePath)
 
 mixin pharetra
   section#pharetra.pharetra.section
-    .pharetra__content
+    .pharetra__content.pharetra__content--disabled
       +pharetra-content-item(
         'Dolor purus non enim praesent elem',
-        'Vestibulum lorem sed risus ultricies. Aerat nam at lectus. Id velit ut tortor pretium viverra suspendisse potenti. Sodales neque sodales ut etiam sit amet nisl purus in.'
+        'Vestibulum lorem sed risus ultricies. Aerat nam at lectus. Id velit ut tortor pretium viverra suspendisse potenti. Sodales neque sodales ut etiam sit amet nisl purus in.',
+        1
       )
       +pharetra-content-item(
         'Libero volutpat sed cras ornare arcu',
-        'Sagittis orci a scelerisque purus semper eget duis at. Nulla facilisi dignissim diam quis enim. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa.'
+        'Sagittis orci a scelerisque purus semper eget duis at. Nulla facilisi dignissim diam quis enim. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa.',
+        2
       )
       .pharetra__indicator.section__indicator.section__indicator--disabled
     +pharetra-form
     
-mixin pharetra-content-item(title, description)
-  .pharetra__content-item
+mixin pharetra-content-item(title, description, index)
+  .pharetra__content-item(class= 'pharetra__content-item-' + index)
     h1.pharetra__content-title= title
     .pharetra__content-description= description
 
 mixin pharetra-form
-  form.pharetra__form
-    h1.pharetra__form-title
-    label.pharetra__form-input-container
-      input.pharetra__form-input(type="text", name="email")
-      .pharetra__form-input-placeholder Your email
-    +submit-button('send', 'pharetra')
+  form.pharetra__form(action='')
+    h1.pharetra__form-title Subscribe us
+    .pharetra__form-message-container
+      .pharetra__form-message.pharetra__form-message--disabled.pharetra__form-message-warning *email address incorrect
+      .pharetra__form-message.pharetra__form-message--disabled.pharetra__form-message-sended *email sended
+    .pharetra__form-wrapper
+      label.pharetra__form-input-container
+        input.pharetra__form-input(type='text', name='email')
+        .pharetra__form-input-placeholder Your email
+      +submit-button('send', 'pharetra')
     
 mixin laoreet
   section#laoreet.laoreet.section
-    .laoreet__content
+    +laoreet-item(
+      'Pellentesque elit eget',
+      'Aliquet eget sit amet tellus cras adipiscing. Est velit egestas dui id ornare arcu. Quis risus sed vulputate odio ut enim blandit volutpat maecenas.',
+      1
+    )
+    +laoreet-item(
+      'Mi proin sed libero',
+      'Suspendisse in est ante in nibh mauris cursus mattis. Turpis massa tincidunt dui ut ornare lectus sit amet est. Et malesuada fames ac turpis egestas.',
+      2
+    )
+    +laoreet-item(
+      'Faucibus interdum',
+      'Et malesuada fames ac turpis egestas. Faucibus interdum posuere.',
+      3
+    )
+    .laoreet__indicator.section__indicator.section__indicator--disabled
+
+mixin laoreet-item(title, description, index)
+  .laoreet__item(class= 'laoreet__item-' + index)
+    h1.laoreet__item-title= title
+    .pharetra__item-description= description
 
 mixin footer
   footer.footer
+    .footer__signature Powered by
+      a(href='https://t.me/uglehell') Uglehell
+    .footer__buttons-container
+      +bigger-content-button('Behance', 'footer', 'https://www.behance.net/gallery/110496083/Excepteur-orci-Website-design')
+      +bigger-content-button('GitHub', 'footer', 'https://github.com/uglehell/excepteur_orci')
 
 mixin content-button(value, section, link)
   a.section__content-btn.content-btn(href= link, target='_blank', class= section + '__content-btn', rel='noopener')
@@ -128,7 +159,7 @@ mixin content-button(value, section, link)
 
 mixin submit-button(value, section)
   .section__content-btn.content-btn.submit-btn(class= section + '__submit-btn')
-    input.content-btn__wrapper.submit-btn__wrapper(type="button", value= value)
+    input.content-btn__wrapper.submit-btn__wrapper(type='button', value= value)
     span.content-btn__border.content-btn__border-top
     span.content-btn__border.content-btn__border-right
     span.content-btn__border.content-btn__border-bottom

@@ -14,7 +14,7 @@
 technologies used:
   * PUG index
   * SCSS styles
-  * JavaScript without jQuery
+  * Vanilla JavaScript
   * GULP 4 build
 
 characteristics:

@@ -19,9 +19,12 @@ class ExcepteurOrci {
 
     this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
+    // DOM elements
     this.indicators = {
       home: document.querySelector('.home__indicator'),
-      ornare: document.querySelectorAll('.ornare__indicator')
+      ornare: document.querySelectorAll('.ornare__indicator'),
+      pharetra: document.querySelector('.pharetra__indicator'),
+      laoreet: document.querySelector('.laoreet__indicator')
     }
     this.nav = {
       button: document.querySelector('.nav-btn'),
@@ -52,6 +55,27 @@ class ExcepteurOrci {
       },
       sectionHeight: document.querySelector('.ornare').offsetHeight
     }
+    this.pharetra = {
+      inputMessages: {
+        states: {
+          warning: document.querySelector('.pharetra__form-message-warning'),
+          sended: document.querySelector('.pharetra__form-message-sended'),
+        },
+        container: document.querySelector('.pharetra__form-message-container'),
+        isActive: false
+      },
+      container: document.querySelector('.pharetra__content'),
+      input: document.querySelector('.pharetra__form-input'),
+      submitButton: document.querySelector('.pharetra__submit-btn'),
+      placeholder: document.querySelector('.pharetra__form-input-placeholder'),
+      contentHeight: document.querySelector('.pharetra__content').offsetHeight,
+      formHeight: document.querySelector('.pharetra__form').offsetHeight,
+      sectionHeight: document.querySelector('.pharetra').offsetHeight
+    }
+    this.laoreet = {
+      container: document.querySelector('.laoreet'),
+      sectionHeight: document.querySelector('.laoreet').offsetHeight
+    }
   }
 
   init() {
@@ -63,15 +87,14 @@ class ExcepteurOrci {
       this.nav.itemsContainer.classList.remove('hidden')
     }
 
-    // if (!this.isMobile) {
-    //   this.changeTitle()
-    // }
+    !this.isMobile && this.changeTitle()
 
     this.setIntroAnimations()
+    this.setPharetraInputHandler()
   }
 
   setIntroAnimations() {
-    if (innerHeight >= innerWidth && innerWidth >= this.INLINE_MENU_VIEWPORT_WIDTH) {
+    if (innerHeight < innerWidth && innerWidth >= this.INLINE_MENU_VIEWPORT_WIDTH) {
       this.handleSectionAnimations()
     } else {
       setTimeout(() => this.handleSectionAnimations(), 500)
@@ -90,8 +113,12 @@ class ExcepteurOrci {
           this.home.container.style.backgroundPositionY = `calc(50% - ${pageYOffset * .5}px)`
           this.home.inscriptions.style.transform = `translateY(${-pageYOffset * .4}px) translate(-50%, -50%)`
         }
-
-        // this.changeTitle()
+        if (
+          pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight - innerHeight &&
+          pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight
+        ) {
+          this.pharetra.container.style.backgroundPositionY = `calc(50% + ${(pageYOffset - (this.home.sectionHeight + this.ornare.sectionHeight)) * .5}px)`
+        }
       }
 
       this.handleSectionAnimations()
@@ -152,7 +179,7 @@ class ExcepteurOrci {
     // content buttons
     this.contentButtons.forEach(button => {
       button.onclick = () => {
-          buttonClickHandler()
+        buttonClickHandler()
 
         function buttonClickHandler() {
           const clickWave = document.createElement('span')
@@ -198,6 +225,16 @@ class ExcepteurOrci {
       this.ornare.items.containers[2].classList.add('ornare__item--disabled')
     }
 
+    // pharetra
+    if (
+        pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight - innerHeight * .8 &&
+        pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.contentHeight
+      ) {
+      this.pharetra.container.classList.remove('pharetra__content--disabled')
+    } else {
+      this.pharetra.container.classList.add('pharetra__content--disabled')
+    }
+
     // indicators
     if (pageYOffset < this.home.sectionHeight / 2) {
       this.indicators.home.classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
@@ -224,20 +261,39 @@ class ExcepteurOrci {
       this.indicators.ornare[2].classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
     } else {
       this.indicators.ornare[2].classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
+    } if (
+      pageYOffset >= this.home.sectionHeight * .5 + this.ornare.sectionHeight &&
+      pageYOffset < this.home.sectionHeight * .5 + this.ornare.sectionHeight + this.pharetra.contentHeight
+    ) {
+      this.indicators.pharetra.classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.pharetra.classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
+    } if (
+      pageYOffset >= this.home.sectionHeight * .5 + this.ornare.sectionHeight + this.pharetra.sectionHeight
+    ) {
+      this.indicators.laoreet.classList.remove(this.INDICATOR_DISABLE_CLASS_NAME)
+    } else {
+      this.indicators.laoreet.classList.add(this.INDICATOR_DISABLE_CLASS_NAME)
     }
   }
 
-  changeTitle() { // doesn't work correctly
-    const symbol = '🌲'
-    const index = (pageYOffset / (this.BODY_HEIGHT - innerHeight) * (this.TITLE.length / 2) | 0) * 2
-    
-    let title = this.TITLE.slice(index, this.TITLE.length)
+  changeTitle() {
+    const recursion = () => {
+      const symbol = '🌲'
+      const index = (pageYOffset / (this.BODY_HEIGHT - innerHeight) * (this.TITLE.length / 2) | 0) * 2
+      
+      let title = this.TITLE.slice(index, this.TITLE.length)
+  
+      for (let titleIndex = 0; titleIndex < index; titleIndex += 2) {
+        title = symbol + title
+      }
+  
+      document.title = title
 
-    for (let titleIndex = 0; titleIndex < index; titleIndex += 2) {
-      title = symbol + title
+      requestIdleCallback(recursion)
     }
 
-    document.title = title
+    recursion()
   }
 
   sendConsoleMessage() {
@@ -253,6 +309,45 @@ class ExcepteurOrci {
     const previousWidth = innerWidth
     
     window.onresize = () => innerWidth != previousWidth && location.reload()
+  }
+
+  setPharetraInputHandler() {
+    let isEmailValid  = false
+    let isEmailSended = false
+
+    const inputHandler = () => {
+      if (this.pharetra.input.value) {
+        this.pharetra.inputMessages.isActive = true
+        isEmailValid = this.pharetra.input.value.match(this.EMAIL_VALIDATION_STRING)
+
+        if (!isEmailValid) {
+          this.pharetra.inputMessages.states.warning.classList.remove('pharetra__form-message--disabled')
+          this.pharetra.inputMessages.container.classList.add('pharetra__form-message-container--active')
+        } else {
+          this.pharetra.inputMessages.states.warning.classList.add('pharetra__form-message--disabled')
+          this.pharetra.inputMessages.container.classList.remove('pharetra__form-message-container--active')
+        }
+        this.pharetra.placeholder.classList.add('pharetra__form-input-placeholder--disabled')
+      } else {
+        this.pharetra.inputMessages.states.warning.classList.add('pharetra__form-message--disabled')
+        this.pharetra.inputMessages.container.classList.remove('pharetra__form-message-container--active')
+        this.pharetra.inputMessages.isActive = false
+        isEmailValid = false
+        this.pharetra.placeholder.classList.remove('pharetra__form-input-placeholder--disabled')
+      }
+    }
+
+    const submitHandler = () => {
+      if (isEmailValid && !isEmailSended) {
+        this.pharetra.inputMessages.container.classList.add('pharetra__form-message-container--active')
+        this.pharetra.inputMessages.states.sended.classList.remove('pharetra__form-message--disabled')
+        this.pharetra.input.setAttribute('disabled', '')
+        isEmailSended = true
+      }
+    }
+
+    this.pharetra.input.addEventListener('input', inputHandler)
+    this.pharetra.submitButton.addEventListener('click', submitHandler)
   }
 }
 
