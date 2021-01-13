@@ -4,8 +4,10 @@ $dark-green: #072E2C;
 
 $click-mobile-transition: .1s;
 $inline-menu-start-width: 928px;
-$viewport-vertical-margin: 6.2vh;
 $viewport-horisontal-margin: 6.2vw;
+$viewport-vertical-margin: 6.2vh;
+$desktop-viewport-horisontal-margin: 3.1vw;
+$desktop-viewport-vertical-margin: 5.3vh;
 
 @mixin title {
   font-family: Poppins;

@@ -39,6 +39,22 @@
       }
     }
   }
+
+  .pharetra {
+    &__form {
+      .content-btn {
+        transition: .7s;
+        transition-delay: .5s;
+      }
+    }
+    &__form--disabled {
+      .content-btn {
+        opacity: 0;
+        transition: 0s;
+        transition-delay: 0s;
+      }
+    }
+  }
 }
 
 @media (min-width: $inline-menu-start-width) and (orientation: landscape) {

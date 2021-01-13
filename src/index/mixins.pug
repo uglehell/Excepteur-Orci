@@ -105,7 +105,7 @@ mixin pharetra-content-item(title, description, index)
     .pharetra__content-description= description
 
 mixin pharetra-form
-  form.pharetra__form(action='')
+  form.pharetra__form.pharetra__form--disabled(action='')
     h1.pharetra__form-title Subscribe us
     .pharetra__form-message-container
       .pharetra__form-message.pharetra__form-message--disabled.pharetra__form-message-warning *email address incorrect
@@ -117,7 +117,7 @@ mixin pharetra-form
       +submit-button('send', 'pharetra')
     
 mixin laoreet
-  section#laoreet.laoreet.section
+  section#laoreet.laoreet.section.laoreet--disabled
     +laoreet-item(
       'Pellentesque elit eget',
       'Aliquet eget sit amet tellus cras adipiscing. Est velit egestas dui id ornare arcu. Quis risus sed vulputate odio ut enim blandit volutpat maecenas.',
@@ -138,12 +138,12 @@ mixin laoreet
 mixin laoreet-item(title, description, index)
   .laoreet__item(class= 'laoreet__item-' + index)
     h1.laoreet__item-title= title
-    .pharetra__item-description= description
+    .laoreet__item-description= description
 
 mixin footer
-  footer.footer
+  footer.footer.footer--disabled
     .footer__signature Powered by
-      a(href='https://t.me/uglehell') Uglehell
+      a.footer__signature-link(href='https://t.me/uglehell', target='_blank') Uglehell
     .footer__buttons-container
       +bigger-content-button('Behance', 'footer', 'https://www.behance.net/gallery/110496083/Excepteur-orci-Website-design')
       +bigger-content-button('GitHub', 'footer', 'https://github.com/uglehell/excepteur_orci')
@@ -166,7 +166,7 @@ mixin submit-button(value, section)
     span.content-btn__border.content-btn__border-left
 
 mixin bigger-content-button(value, section, link)
-  a.section__content-btn.content-btn.bigger-content-b(href= link, target='_blank', class= section + '__content-btn', rel='noopener')
+  a.section__content-btn.content-btn.bigger-content-btn(href= link, target='_blank', class= section + '__content-btn', rel='noopener')
     button.content-btn__wrapper(aria-label='Content link')
       span.content-btn__value= value
       span.content-btn__border.content-btn__border-top

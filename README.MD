@@ -1,4 +1,4 @@
-<!-- # Site design and layout "Excepteur Orci"
+# Site design and layout "Excepteur Orci"
 
 ## Design made in Figma
 
@@ -25,4 +25,4 @@ characteristics:
   * Accessible
   * Semantics
   * CSS animations (transition, keyframes)
-  * Mobile first -->
+  * Mobile first

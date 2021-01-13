@@ -2,9 +2,6 @@
   "private": true,
   "type": "module",
   "main": "gulpfile.js",
-  "scripts": {
-    "build": "gulp index & gulp style & gulp scripts"
-  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",

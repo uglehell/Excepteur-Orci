@@ -12,7 +12,6 @@ import uglify            from 'gulp-uglify-es'
 import notify            from 'gulp-notify'
 import browserSync       from 'browser-sync'
 import newer             from 'gulp-newer'
-import del               from 'del'
 import removeCssComments from 'gulp-strip-css-comments'
 
 
@@ -43,7 +42,6 @@ const path = {
 
 const buildFunctions = {
   index: done => {
-    del(path.dist + '*.html')
     gulp.src(path.src.index)
       .pipe(plumber())
       .pipe(pug())
@@ -88,7 +86,6 @@ const buildFunctions = {
     done()
   },
   images: done => {
-    del(path.dist.medias)
     gulp.src(path.src.medias)
       .pipe(newer(path.dist.medias))
       .pipe(imagemin([
@@ -109,15 +106,6 @@ const buildFunctions = {
       .pipe(gulp.dest(path.dist.medias))
       .pipe(browserSync.reload({ stream: true }))
 
-    done()
-  },
-  build: done => {
-    gulp.series(
-      buildFunctions.index,
-      buildFunctions.style,
-      buildFunctions.scripts,
-      buildFunctions.images
-    )
     done()
   }
 }
@@ -215,4 +203,9 @@ export const scripts = buildFunctions.scripts
 export const images  = buildFunctions.images
 
 export default devFunction.initialize
-export const build = buildFunctions.build
+export const build = gulp.series(
+  buildFunctions.index,
+  buildFunctions.style,
+  buildFunctions.scripts,
+  buildFunctions.images
+)

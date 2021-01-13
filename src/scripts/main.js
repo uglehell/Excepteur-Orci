@@ -6,7 +6,7 @@ class ExcepteurOrci {
     this.setScrollEventsHandler()
     this.setClickEventHandlers()
     this.sendConsoleMessage()
-    // this.setReloaderOnResize()
+    this.setReloaderOnResize()
   }
 
   setVariables() {
@@ -68,6 +68,7 @@ class ExcepteurOrci {
       input: document.querySelector('.pharetra__form-input'),
       submitButton: document.querySelector('.pharetra__submit-btn'),
       placeholder: document.querySelector('.pharetra__form-input-placeholder'),
+      formElement: document.querySelector('.pharetra__form'),
       contentHeight: document.querySelector('.pharetra__content').offsetHeight,
       formHeight: document.querySelector('.pharetra__form').offsetHeight,
       sectionHeight: document.querySelector('.pharetra').offsetHeight
@@ -75,6 +76,11 @@ class ExcepteurOrci {
     this.laoreet = {
       container: document.querySelector('.laoreet'),
       sectionHeight: document.querySelector('.laoreet').offsetHeight
+    }
+    this.footer = {
+      container: document.querySelector('.footer'),
+      signature: document.querySelector('.footer__signature'),
+      sectionHeight: document.querySelector('.footer').offsetHeight
     }
   }
 
@@ -109,15 +115,30 @@ class ExcepteurOrci {
   setScrollEventsHandler() {
     window.addEventListener('scroll', event => {
       if (!this.isMobile) {
+        // home
         if (pageYOffset < innerHeight) {
           this.home.container.style.backgroundPositionY = `calc(50% - ${pageYOffset * .5}px)`
           this.home.inscriptions.style.transform = `translateY(${-pageYOffset * .4}px) translate(-50%, -50%)`
         }
+
+        // pharetra
         if (
           pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight - innerHeight &&
           pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight
         ) {
-          this.pharetra.container.style.backgroundPositionY = `calc(50% + ${(pageYOffset - (this.home.sectionHeight + this.ornare.sectionHeight)) * .5}px)`
+          this.pharetra.container.style.backgroundPositionY = `calc(50% - ${
+            (pageYOffset - (this.home.sectionHeight + this.ornare.sectionHeight)) * .5
+          }px)`
+        }
+
+        // laoreet
+        if (
+          pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight - innerHeight &&
+          pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight + this.laoreet.sectionHeight
+        ) {
+          this.laoreet.container.style.backgroundPositionY = `calc(50% - ${
+            (pageYOffset - (this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight)) * .5
+          }px)`
         }
       }
 
@@ -227,12 +248,38 @@ class ExcepteurOrci {
 
     // pharetra
     if (
-        pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight - innerHeight * .8 &&
+        pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight - innerHeight * .9 &&
         pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.contentHeight
       ) {
       this.pharetra.container.classList.remove('pharetra__content--disabled')
     } else {
       this.pharetra.container.classList.add('pharetra__content--disabled')
+    }
+    if (
+      pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.contentHeight * .5 - innerHeight * .2 &&
+      pageYOffset < this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight
+    ) {
+      this.pharetra.formElement.classList.remove('pharetra__form--disabled')
+    } else {
+      this.pharetra.formElement.classList.add('pharetra__form--disabled')
+    }
+
+    // laoreet
+    if (
+      pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight - innerHeight * .9
+    ) {
+      this.laoreet.container.classList.remove('laoreet--disabled')
+    } else {
+      this.laoreet.container.classList.add('laoreet--disabled')
+    }
+
+    // footer
+    if (
+      pageYOffset >= this.home.sectionHeight + this.ornare.sectionHeight + this.pharetra.sectionHeight + this.laoreet.sectionHeight - innerHeight
+    ) {
+      setTimeout(() => this.footer.container.classList.remove('footer--disabled'), 500)
+    } else {
+      this.footer.container.classList.add('footer--disabled')
     }
 
     // indicators
