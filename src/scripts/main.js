@@ -384,7 +384,9 @@ class ExcepteurOrci {
       }
     }
 
-    const submitHandler = () => {
+    const submitHandler = event => {
+      event.preventDefault()
+
       if (isEmailValid && !isEmailSended) {
         this.pharetra.inputMessages.container.classList.add('pharetra__form-message-container--active')
         this.pharetra.inputMessages.states.sended.classList.remove('pharetra__form-message--disabled')
